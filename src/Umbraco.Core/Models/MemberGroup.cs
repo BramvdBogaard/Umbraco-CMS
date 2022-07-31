@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Umbraco.Cms.Core.Models.ContentEditing;
 using Umbraco.Cms.Core.Models.Entities;
 
 namespace Umbraco.Cms.Core.Models;
@@ -41,6 +42,9 @@ _additionalData ??= new Dictionary<string, object?>();
             SetPropertyValueAndDetectChanges(value, ref _name, nameof(Name));
         }
     }
+
+    [DataMember]
+    public List<MemberDisplay> Members { get; set; } = new List<MemberDisplay>();
 
     [DataMember]
     public int CreatorId

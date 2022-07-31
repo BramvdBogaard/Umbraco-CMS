@@ -6,6 +6,7 @@ namespace Umbraco.Cms.Core.Models.ContentEditing;
 public class MemberGroupDisplay : EntityBasic, INotificationModel
 {
     public MemberGroupDisplay() => Notifications = new List<BackOfficeNotification>();
+    public List<MemberDisplay> Members { get; set; } = new List<MemberDisplay>();
 
     /// <summary>
     ///     This is used to add custom localized messages/strings to the response for the app to use for localized UI purposes.

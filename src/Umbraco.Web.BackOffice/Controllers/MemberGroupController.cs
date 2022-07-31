@@ -21,18 +21,21 @@ namespace Umbraco.Cms.Web.BackOffice.Controllers;
 public class MemberGroupController : UmbracoAuthorizedJsonController
 {
     private readonly ILocalizedTextService _localizedTextService;
+    private readonly IMemberService _memberService;
     private readonly IMemberGroupService _memberGroupService;
     private readonly IUmbracoMapper _umbracoMapper;
 
     public MemberGroupController(
         IMemberGroupService memberGroupService,
         IUmbracoMapper umbracoMapper,
-        ILocalizedTextService localizedTextService)
+        ILocalizedTextService localizedTextService,
+        IMemberService memberService)
     {
         _memberGroupService = memberGroupService ?? throw new ArgumentNullException(nameof(memberGroupService));
         _umbracoMapper = umbracoMapper ?? throw new ArgumentNullException(nameof(umbracoMapper));
         _localizedTextService =
             localizedTextService ?? throw new ArgumentNullException(nameof(localizedTextService));
+        _memberService = memberService;
     }
 
     /// <summary>
@@ -46,6 +49,20 @@ public class MemberGroupController : UmbracoAuthorizedJsonController
         if (memberGroup == null)
         {
             return NotFound();
+        }
+
+        //TODO: Move to service?
+        if (!string.IsNullOrEmpty(memberGroup.Name))
+        {
+            var membersInGroup = _memberService.GetMembersByGroup(memberGroup.Name);
+            if (membersInGroup.Any())
+            {
+                foreach(var member in membersInGroup)
+                {
+                    var mappedObject = _umbracoMapper.Map<IMember, MemberDisplay>(member);
+                    if (mappedObject != null) memberGroup.Members.Add(mappedObject);
+                }
+            }
         }
 
         MemberGroupDisplay? dto = _umbracoMapper.Map<IMemberGroup, MemberGroupDisplay>(memberGroup);

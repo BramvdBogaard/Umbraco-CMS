@@ -99,6 +99,7 @@ public class MemberMapDefinition : IMapDefinition
         target.Name = source.Name;
         target.Path = $"-1,{source.Id}";
         target.Udi = Udi.Create(Constants.UdiEntityType.MemberGroup, source.Key);
+        target.Members = source.Members;
     }
 
     // Umbraco.Code.MapAll -Icon -Trashed -ParentId -Alias -Key -Udi
@@ -108,6 +109,7 @@ public class MemberMapDefinition : IMapDefinition
         //target.Key = source.Key;
         target.Name = source.Name;
         target.Path = $"-1,{source.Id}";
+        target.Members = new List<MemberDisplay>();
         //target.Udi = Udi.Create(Constants.UdiEntityType.MemberGroup, source.Key);
     }
 
