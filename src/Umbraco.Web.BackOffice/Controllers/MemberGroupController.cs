@@ -60,7 +60,7 @@ public class MemberGroupController : UmbracoAuthorizedJsonController
                 foreach(var member in membersInGroup)
                 {
                     var mappedObject = _umbracoMapper.Map<IMember, MemberDisplay>(member);
-                    if (mappedObject != null) memberGroup.Members.Add(mappedObject);
+                    if (mappedObject != null) memberGroup.Members?.Add(mappedObject);
                 }
             }
         }

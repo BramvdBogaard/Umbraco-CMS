@@ -6,6 +6,7 @@ namespace Umbraco.Cms.Core.Models.ContentEditing;
 public class MemberGroupDisplay : EntityBasic, INotificationModel
 {
     public MemberGroupDisplay() => Notifications = new List<BackOfficeNotification>();
+    [DataMember(Name = "members")]
     public List<MemberDisplay> Members { get; set; } = new List<MemberDisplay>();
 
     /// <summary>

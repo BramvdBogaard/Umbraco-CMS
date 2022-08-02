@@ -20,7 +20,6 @@ function MemberGroupsEditController($scope, $routeParams, appState, navigationSe
     var evts = [];
 
     if ($routeParams.create) {
-
         $scope.page.loading = true;
 
         //we are creating so get an empty member group item
@@ -48,7 +47,7 @@ function MemberGroupsEditController($scope, $routeParams, appState, navigationSe
         memberGroupResource.getById($routeParams.id)
             .then(function (data) {
                 $scope.content = data;
-
+              console.log(data);
                 //share state
                 editorState.set($scope.content);
 
